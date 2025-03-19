@@ -1,4 +1,5 @@
 import datetime
+from typing import Optional
 from uuid import UUID
 from pydantic import EmailStr
 from src.domain.base.schema import BaseSchema
@@ -25,7 +26,7 @@ class PrivateUserSchema(PublicUserSchema):
 class CreateUserSchema(BaseSchema):
     email: str
     password: str
-    active_ref_code: str | None = None
+    active_ref_code: Optional[str] = None
 
 
 class GetSelfRef(BaseSchema):
