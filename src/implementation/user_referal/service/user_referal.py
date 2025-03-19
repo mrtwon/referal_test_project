@@ -42,9 +42,10 @@ class UserReferalService(UserReferalServiceABC):
             raise AlreadyHasRefCodeException()
         if get_user_referal_by_id.user_id != user_id:
             raise ForbiddenException()
-        if schema.end_date >= (datetime.date.today() + datetime.timedelta(days=365 * 2)):
+        if schema.end_date and schema.end_date >= (datetime.date.today() + datetime.timedelta(days=365 * 2)):
             raise LongTimeLifeRefException()
-        get_user_referal_by_id.end_date = schema.end_date
+        if schema.end_date:
+            get_user_referal_by_id.end_date = schema.end_date
         if not get_user_referal_by_id.is_delete:
             get_user_referal_by_id.is_delete = schema.is_delete
         result = await self.user_referal_uow.user_referal.update(get_user_referal_by_id)
