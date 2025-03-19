@@ -1,9 +1,6 @@
 import datetime
 from uuid import UUID
 
-from fastapi import HTTPException
-from starlette import status
-
 from src.domain.base.exception import AlreadyHasRefCodeException, ForbiddenException, LongTimeLifeRefException
 from src.domain.user.schema.user import GetActiveCode
 from src.domain.user_referal.model.user_referal import UserReferalModel
