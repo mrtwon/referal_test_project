@@ -13,6 +13,11 @@ class TokeNotValidException(AppBaseException):
     status = 403
 
 
+class ReferalCannotBeAddedException(AppBaseException):
+    detail = 'referal code cannot be add'
+    status = 403
+
+
 class UserNotFoundException(AppBaseException):
     detail = 'user not found'
     status = 404

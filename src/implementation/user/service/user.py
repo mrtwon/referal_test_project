@@ -5,7 +5,7 @@ from fastapi import HTTPException
 from starlette import status
 
 from src.domain.base.exception import UserReferenceNotFoundException, UserNotFoundException, \
-    AlreadyHasActiveCodeException
+    AlreadyHasActiveCodeException, ReferalCannotBeAddedException
 from src.domain.user.model.user import UserModel
 from src.domain.user.repository.uow import IUserUOW
 from src.domain.user.schema.user import CreateUserSchema, PrivateUserSchema, UpdateUserSchema, UserSchema, GetSelfRef
@@ -47,6 +47,9 @@ class UserService(UserServiceABC):
         new_ref_code = update_user_schema.user_active_ref_code
         
         get_user_by_id = await self.user_uow.users.get(user_id=user_id)
+        get_ref_by_user_id = await self.user_referal_uow.user_referal.get(ref_code=update_user_schema.user_active_ref_code)
+        if get_ref_by_user_id.user_id == user_id:
+            raise ReferalCannotBeAddedException()
         if not get_user_by_id:
             raise UserNotFoundException()
 
