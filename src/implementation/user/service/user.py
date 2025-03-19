@@ -32,7 +32,12 @@ class UserService(UserServiceABC):
             result = await self.user_uow.users.add(new_user)
             return UserSchema.model_validate(result)
         else:
-            result = await self.user_uow.users.add(**add_user_schema.dict())
+            new_user = UserModel(
+                email=add_user_schema.email,
+                password=add_user_schema.password,
+                active_ref_code=None
+            )
+            result = await self.user_uow.users.add(new_user)
             await self.user_uow.commit()
             return UserSchema.model_validate(result)
 
