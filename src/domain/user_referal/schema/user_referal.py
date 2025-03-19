@@ -1,10 +1,10 @@
 import datetime
+from typing import Optional
 from uuid import UUID
 
 from pydantic import EmailStr
 
 from src.domain.base.schema import BaseSchema
-
 
 
 class UserReferalSchema(BaseSchema):
@@ -16,8 +16,9 @@ class UserReferalSchema(BaseSchema):
 
 
 class UpdateReferalSchema(BaseSchema):
-    end_date: datetime.date
-    is_delete: bool
+    end_date: Optional[datetime.date] = None
+    is_delete: Optional[bool] = None
+
 
 class SearchByEmailSchema(BaseSchema):
     email: EmailStr

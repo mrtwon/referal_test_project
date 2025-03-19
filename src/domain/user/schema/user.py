@@ -8,7 +8,7 @@ from src.domain.base.schema import BaseSchema
 class UserSchema(BaseSchema):
     id: UUID
     email: str
-    active_ref_code: str
+    active_ref_code: Optional[str] = None
     create_at: datetime.datetime
     password: str
 
@@ -19,7 +19,7 @@ class PublicUserSchema(BaseSchema):
 
 
 class PrivateUserSchema(PublicUserSchema):
-    active_ref_code: str
+    active_ref_code: Optional[str] = None
     create_at: datetime.datetime
 
 
@@ -39,9 +39,9 @@ class GetActiveCode(BaseSchema):
 
 
 class UpdateUserSchema(BaseSchema):
-    user_active_ref_code: str | None = None
-    password: str | None = None
-    email: EmailStr | None = None
+    user_active_ref_code: Optional[str] = None
+    password: Optional[str] = None
+    email: Optional[EmailStr] = None
 
 
 class UserAuthSchema(BaseSchema):
